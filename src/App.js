@@ -3,8 +3,8 @@ import './App.css';
 import React, {useState} from "react";
 
 function App() {
-  const defaultValue = ""
-  const[inputTodo, setInputTodo] = useState(defaultValue)
+  
+  const[inputTodo, setInputTodo] = useState("")
   const[allTasksDetails, setallTaskDetails] =useState([]);
   const[showTasksDetails, setShowTaskDetails] =useState([]);
  
@@ -13,13 +13,13 @@ function App() {
   }  
   
   const handleKeyDown = (event) => {
-    console.log(allTasksDetails)
+    // console.log(allTasksDetails)
     if(event.target.value?.trim() === '') return;
     if (event.key === "Enter") {
       const temp = allTasksDetails => [...allTasksDetails, { value: inputTodo.trim(), isCompleted: false}];
       setShowTaskDetails(temp);
       setallTaskDetails(temp);
-      setInputTodo(defaultValue)
+      setInputTodo("")
     }
   };
 
@@ -53,7 +53,7 @@ function App() {
     const temp = { value: each.value, isCompleted: e.target.checked }
     newArr[index] = temp;
     setallTaskDetails(newArr);
-    setShowTaskDetails(newArr)     
+    setShowTaskDetails(newArr);     
   }
 
   return (
@@ -62,8 +62,8 @@ function App() {
   
       <input type="text" placeholder="Create a new todo" className="p-3 create-todo" onChange={handleChange} onKeyDown={handleKeyDown} value={inputTodo} /> <br/>
       { showTasksDetails.length > 0 && showTasksDetails.map((each, i) => 
-      <div className='eachtodo mt-4  pt-2' key={i}> 
-      <input type='checkbox' className='ckeckbox' value={each.isCompleted} onChange={(e) => setCheckboxCheck(e, i, each)}/>
+      <div className='eachtodo mt-4  pt-2'> 
+      <input type='checkbox' className='ckeckbox' checked={each.isCompleted} onChange={(e) => setCheckboxCheck(e, i, each)}/>
       <p  style={{
           textDecoration: each.isCompleted ? "line-through" :  "none",
         }}> {each?.value}  </p>
